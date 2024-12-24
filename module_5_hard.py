@@ -24,6 +24,8 @@ class Video:
 
     def __str__(self):
         return self.title
+    def __repr__(self):
+        return self.title
 
 class UrTube:
     def __init__(self):
@@ -49,16 +51,18 @@ class UrTube:
         for user in self.users:
             if login == user.nickname and password == user.password:
                 self.current_user = user
+                return user
 
-    def add(self, *args):
-        for movie in args:
-            self.videos.append(movie)
+    def add(self, *videos:Video):
+        for video in videos:
+            if video.title not in self. videos:
+                self.videos.append(video)
 
     def get_videos(self, text):
         list_movie = []
         for video in self.videos:
             if text.upper() in video.title.upper():
-                list_movie.append(video.title)
+                list_movie.append(video)
         return list_movie
 
     def watch_video(self, movie):
